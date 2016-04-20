@@ -21,7 +21,6 @@ import org.htmlparser.beans.LinkBean;
 import java.net.URL;
 import java.util.stream.Collectors;
 
-
 public class Crawler
 {
 	private String url;
@@ -29,20 +28,19 @@ public class Crawler
 	{
 		url = _url;
 	}
-	public Vector<String> extractWords() throws ParserException
 
+	public String extractPage() throws ParserException
 	{
 		// extract words in url and return them
-		// use StringTokenizer to tokenize the result from StringBean
-		// ADD YOUR CODES HERE
-
 		StringBean sb = new StringBean();
 		sb.setLinks(false);
 		sb.setURL(url);
-		return new Vector<String>(Arrays.asList(sb.getStrings().split("\n")));
-	}
-	public Vector<String> extractLinks() throws ParserException
 
+//		return sb.getStrings() == null ? null : new Vector<String>(Arrays.asList(sb.getStrings().split("(\n)|| ")));
+        return sb.getStrings() == null ? "" : sb.getStrings();
+	}
+
+	public Vector<String> extractLinks() throws ParserException
 	{
 		// extract links in url and return them
 		// ADD YOUR CODES HERE
@@ -55,15 +53,18 @@ public class Crawler
 	{
 		try
 		{
-			Crawler crawler = new Crawler("http://www.cs.ust.hk/~dlee/4321/");
+			Crawler crawler = new Crawler("http://www.seng.ust.hk");
 
 
-			Vector<String> words = crawler.extractWords();
+//			Vector<String> words = crawler.extractPage();
 
-			System.out.println("Words in "+crawler.url+":");
-			for(int i = 0; i < words.size(); i++)
-				System.out.print(words.get(i)+" ");
-			System.out.println("\n\n");
+//			System.out.println("Words in "+crawler.url+":");
+//			for(int i = 0; i < words.size(); i++)
+//				System.out.print(words.get(i)+" ");
+//			System.out.println("\n\n");
+
+            String words = crawler.extractPage();
+            System.out.print(words);
 
 
 
@@ -75,9 +76,9 @@ public class Crawler
 
 		}
 		catch (ParserException e)
-            	{
-                	e.printStackTrace ();
-            	}
+        {
+            e.printStackTrace ();
+        }
 
 	}
 }
